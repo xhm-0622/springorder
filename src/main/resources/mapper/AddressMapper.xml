@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.address.mapper.AddressMapper">
+
+
+
+    <select id="queryAddressList" resultType="map">
+     select s.*,
+    CONCAT_WS('-',c1.cityName,c2.cityName,c3.cityName,c4.cityName) cityName
+    from t_address s
+    left join t_city c1 on s.cityId1 = c1.id
+    left join t_city c2 on s.cityId2 = c2.id
+    left join t_city c3 on s.cityId3 = c3.id
+    left join t_city c4 on s.cityId4 = c4.id
+     left join t_user u  on s.userId=u.id   where userId=#{id}
+
+</select>
+
+    <select id="queryList" resultType="map">
+        select * from t_city
+    </select>
+
+    <delete id="del" parameterType="long">
+        delete from t_address where id=#{id};
+    </delete>
+</mapper>
